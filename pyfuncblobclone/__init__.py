@@ -9,19 +9,36 @@ def main(myblob: func.InputStream):
                  f"Name: {myblob.name}\n"
                  f"Blob Size: {myblob.length} bytes")
 
-    connection_string = os.environ["storage_connection_string"]
-    account_key = os.environ["storage_account_key"]
-    input_container = os.environ["input_container_name"]
-    output_container = os.environ["output_container_name"]
+    input_account_key = os.environ["input_account_key"]
+    input_container_name = os.environ["input_container_name"]
 
-    in_client = BlobClient.from_blob_url(myblob.uri, account_key)
+    output_connection_string = os.environ["output_connection_string"]
+    output_container_name = os.environ["output_container_name"]
+
+    logging.info(
+        f"Instantiate client for {myblob.name} in {input_container_name}")
+
+    in_client = BlobClient.from_blob_url(myblob.uri, input_account_key)
+
+    logging.info(
+        f"Get Blob Properties for {myblob.name} from {input_container_name}")
+
     properties = in_client.get_blob_properties()
     name = properties.name
     content_type = properties.content_settings.content_type
 
-    logging.info(f"Copying {name} from {input_container} to {output_container} with content-type {content_type}")
+    logging.info(
+        f"Instantiate client for {myblob.name} in {output_container_name}")
 
-    out_client = BlobClient.from_connection_string(connection_string, output_container, name)
+    out_client = BlobClient.from_connection_string(
+        output_connection_string,
+        output_container_name,
+        name)
+
+    logging.info(f"Copy {name}\n"
+                 f"from {input_container_name} to {output_container_name}\n"
+                 f"with content-type {content_type}")
+
     out_client.upload_blob(
         data=myblob,
         blob_type=BlobType.BlockBlob,
@@ -29,4 +46,4 @@ def main(myblob: func.InputStream):
         overwrite=True,
         content_settings=ContentSettings(content_type=content_type))
 
-    logging.info(f"Uploaded complete for {output_container}/{name}")
+    logging.info(f"Upload complete for {output_container_name}/{name}")

@@ -2,10 +2,13 @@
   "IsEncrypted": false,
   "Values": {
     "AzureWebJobsStorage": "YOUR_FUNCTIONS_STORAGE_CONNECTION_STRING",
+    "APPINSIGHTS_INSTRUMENTATIONKEY": "YOUR_APPINSIGHTS_INSTRUMENTATION_KEY",
+    "APPLICATIONINSIGHTS_CONNECTION_STRING": "YOUR_APPINSIGHTS_CONNECTION_STRING",
     "FUNCTIONS_WORKER_RUNTIME": "python",
-    "storage_connection_string": "YOUR_STORAGE_ACCOUNT_CONNECTION_STRING",
-    "storage_account_key": "YOUR_STORAGE_ACCOUNT_KEY",
-    "input_container_name": "YOUR_INPUT_CONTAINER_NAME",
-    "output_container_name": "YOUR_OUTPUT_CONTAINER_NAME"
+    "input_connection_string": "YOUR_INPUT_STORAGE_ACCOUNT_CONNECTION_STRING",
+    "input_account_key": "YOUR_INPUT_STORAGE_ACCOUNT_KEY",
+    "input_container_name": "sample",
+    "output_connection_string": "YOUR_OUTPUT_STORAGE_ACCOUNT_CONNECTION_STRING",
+    "output_container_name": "sample"
   }
 }
